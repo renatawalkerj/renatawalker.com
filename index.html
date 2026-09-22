@@ -92,6 +92,13 @@
   }
   .role-block .links { font-size: 14px; display: flex; gap: 18px; flex-wrap: wrap; }
   .role-block .links a { font-weight: 500; }
+  .role-block .role-note { font-size: 13px; color: var(--muted); }
+  .role-block .video-embed {
+    width: 100%; max-width: 480px; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 20px rgba(30,27,22,0.18);
+  }
+  .role-block .video-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
 
   /* Music */
   .music-head { display: flex; gap: 24px; align-items: flex-end; flex-wrap: wrap; }
@@ -183,15 +190,16 @@
     <div class="meta">
       Montreal<br>
       <a href="mailto:renata.walkerj@gmail.com">renata.walkerj@gmail.com</a><br>
-      <a href="https://www.linkedin.com/in/renata-walker/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://www.linkedin.com/in/renata-walker/" target="_blank" rel="noopener">LinkedIn ↗</a><br>
+      <a href="assets/docs/Renata-Walker-Resume.pdf" target="_blank">Résumé ↗</a>
     </div>
   </aside>
 
   <main>
     <div class="intro">
-      <p>By day, I build products in high-complexity domains — a 0-to-1 builder looking for something worth
-      caring for next: mental health, sustainability, or something entirely unexpected. No ego, just craft
-      and curiosity.</p>
+      <p>By day, I build products in high-complexity domains. I'm a 0-to-1 builder looking for something
+      worth caring for next: mental health, sustainability, or something entirely unexpected. No ego, just
+      craft and curiosity.</p>
       <p>By night and on weekends, I'm a singer-songwriter, social dancer, and hiking enthusiast. My
       superpower? Infecting people with the excitement I have for solving complex problems.</p>
     </div>
@@ -205,9 +213,11 @@
           <div class="role-meta">Independent project &nbsp;·&nbsp; ongoing</div>
         </div>
         <img class="media" src="assets/images/dashboard-sourcing.png" alt="The job-search pipeline's own dashboard, showing sourced postings ranked by match score" loading="lazy">
-        <p class="prose">An AI-assisted pipeline that sources job postings daily, scores each one against
-        real experience with evidence — not keywords — and tracks everything through to interviews.
-        Self-built, self-hosted, already running daily for a few friends' searches.</p>
+        <p class="prose">A full-fledged product (frontend dashboard, backend pipelines) that sources job
+        postings daily and scores each one against real experience with evidence, not keywords. Built to
+        minimize LLM token usage and plug into whichever model you already use, Claude or ChatGPT. The goal:
+        take the boring part of a job search off your plate.</p>
+        <p class="prose">Self-built, self-hosted, already running daily for a few friends' searches.</p>
         <div class="links">
           <a href="/job-search-automation/">See how it works ↗</a>
         </div>
@@ -215,21 +225,29 @@
 
       <div class="role-block">
         <div>
-          <h3>3D annotation platform, 0 → 1</h3>
+          <h3>Built a product from 0 to 1</h3>
           <div class="role-meta">Senior → Staff PM, Sama &nbsp;·&nbsp; 2021–2024</div>
         </div>
         <img class="media" src="assets/images/sama-3d-annotation.gif" alt="Sama's 3D point-cloud annotation tool, showing bounding boxes tracked across dynamic objects in a LiDAR scan" loading="lazy">
         <p class="prose"><strong>$7M in revenue impact</strong>, bookings share up from 3% to 45%. Built
-        Machine-Assisted Annotation (a <strong>3x efficiency gain</strong>) and led the SH3-to-Objects platform
-        migration — validated through conference field research and on-site consulting programs with Bosch,
-        ZF, and Cariad.</p>
-        <p class="prose">Along the way: 10+ international keynotes and panels on LiDAR annotation quality,
-        ADAS/AV data labeling, and training data safety — at Auto AI USA, Tech AD Europe, AVT Expo, and
-        others.</p>
+        AI-assisted tools (a <strong>3x efficiency gain</strong>).</p>
         <div class="links">
           <a href="https://www.sama.com/3d-lidar-radar-point-cloud-annotation" target="_blank" rel="noopener">See the product ↗</a>
-          <a href="https://www.youtube.com/watch?v=qQ3HRiQ0DJw&list=PLUd0_Tc1jTZo" target="_blank" rel="noopener">Watch the talks ↗</a>
         </div>
+        <div class="role-note">Validated through conference field research and on-site consulting programs
+        with Bosch, ZF, and Cariad.</div>
+      </div>
+
+      <div class="role-block">
+        <div>
+          <h3>Spoke at 10+ industry conferences</h3>
+          <div class="role-meta">Senior PM, Sama &nbsp;·&nbsp; 2021–2023</div>
+        </div>
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/qQ3HRiQ0DJw?list=PLUd0_Tc1jTZo" title="Conference talks on LiDAR annotation and AV data labeling" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+        </div>
+        <p class="prose">10+ international keynotes and panels on LiDAR annotation quality, ADAS/AV data
+        labeling, and training data safety, at Auto AI USA, Tech AD Europe, AVT Expo, and others.</p>
       </div>
 
       <div class="role-block">
@@ -238,7 +256,7 @@
           <div class="role-meta">Product Manager, Platform, Coveo &nbsp;·&nbsp; 2020–2021</div>
         </div>
         <img class="media" src="assets/images/coveo-connectors.png" alt="Coveo's connectors marketplace, showing native connectors (Catalog, Database, File System, GraphQL API) and universal connectors (Push, REST API, RSS, Sitemap)" loading="lazy">
-        <p class="prose">Owned API connectivity for data ingestion — native, purpose-built connectors
+        <p class="prose">Owned API connectivity for data ingestion: native, purpose-built connectors
         alongside push-API and generic REST-API gates for systems without one, covering both sides of the
         native-vs-generic, push-vs-pull tradeoff.</p>
         <div class="links">
@@ -254,19 +272,19 @@
         <img class="media" src="assets/images/breather-notebook.png" alt="Jupyter notebook scraping and indexing Breather's public location URLs" loading="lazy">
         <p class="prose">Before being hired, scraped every public Breather coworking location and built a
         full analysis flagging underperforming locations to double-check. The team hired me off the back of
-        it — opening a new data role for marketing and sales, even though the position I'd originally applied
+        it, opening a new data role for marketing and sales, even though the position I'd originally applied
         for was already filled.</p>
       </div>
 
       <div class="role-block">
         <div>
           <h3>Rebuilt an SMB's website</h3>
-          <div class="role-meta">Digital Marketing Consultant, Walker Design &amp; Decoration &nbsp;·&nbsp; 2016–2018 — first product job</div>
+          <div class="role-meta">Digital Marketing Consultant, Walker Design &amp; Decoration &nbsp;·&nbsp; 2016–2018 (first product job)</div>
         </div>
         <img class="media" src="assets/images/walker-diseno-site.png" alt="Walker Diseño y Decoración's rebuilt website homepage" loading="lazy">
         <p class="prose">Full rebuild of the company website (<strong>+50% sessions, −30% bounce rate</strong>)
         and a new online quotation widget (<strong>+50% conversions, +30% sales</strong>). The site has stood
-        as the business's main lead-generation channel since launch — still true today.</p>
+        as the business's main lead-generation channel since launch. Still true today.</p>
         <div class="links">
           <a href="https://www.malladeproteccion.cl/" target="_blank" rel="noopener">See the product ↗</a>
         </div>
@@ -318,7 +336,7 @@
 
       <div class="ep-story">
         <p class="prose">Wrote every song, then worked hand-in-hand with a producer through recording and
-        production. Managed the entire launch myself — a release show, and the official video for
+        production. Managed the entire launch myself: a release show, and the official video for
         <em>Alone</em>.</p>
         <a class="short" href="https://www.youtube.com/shorts/7mdzggYlJSY" target="_blank" rel="noopener" aria-label="Watch the official video for Alone on YouTube"></a>
       </div>
@@ -326,7 +344,7 @@
 
     <section id="movement">
       <div class="eyebrow">Movement</div>
-      <p class="prose">Social dancing, most weeks — <strong>bachata, salsa, zouk</strong>. Whatever floor is
+      <p class="prose">Social dancing, most weeks: <strong>bachata, salsa, zouk</strong>. Whatever floor is
       playing.</p>
     </section>
 
@@ -337,7 +355,7 @@
     </section>
 
     <footer>
-      <span>Renata Walker — Montreal</span>
+      <span>Renata Walker, Montreal</span>
       <span>© 2026</span>
     </footer>
   </main>

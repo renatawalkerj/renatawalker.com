@@ -156,9 +156,9 @@
 
     <h2>What it does</h2>
     <ul class="md">
-      <li>Pulls new postings daily — target companies' own career pages, plus the open market</li>
+      <li>Pulls new postings daily: target companies' own career pages, plus the open market</li>
       <li>Scores every posting against your real experience, with the exact evidence behind each score</li>
-      <li>Surfaces the fine print — comp, remote policy, sponsorship, parental leave — quoted, never guessed</li>
+      <li>Surfaces the fine print (comp, remote policy, sponsorship, parental leave), quoted, never guessed</li>
       <li>One dashboard: sourcing → triage → leads → interviews</li>
     </ul>
 
@@ -167,19 +167,19 @@
       <li>No more manually checking a dozen career pages a day</li>
       <li>No more re-reading a JD for ten minutes to guess if you qualify</li>
       <li>Never miss a sponsorship clause or RTO policy buried in paragraph six</li>
-      <li>Never sends an application for you — you stay in control, always</li>
+      <li>Never sends an application for you. You stay in control, always</li>
     </ul>
 
     <figure>
       <img src="assets/dashboard-sourcing.png" alt="The pipeline's own dashboard, showing sourced postings ranked by match score, with filters for priority, product roles, location, and eligibility" loading="lazy">
-      <figcaption>Sourcing tab — 562 roles found, filtered and ranked by match score.</figcaption>
+      <figcaption>Sourcing tab: 562 roles found, filtered and ranked by match score.</figcaption>
     </figure>
 
     <h2>Setup</h2>
     <p>~30–45 min once. Then it just runs.</p>
     <ol class="md">
-      <li>Spin up your own free Supabase project — your data, never shared</li>
-      <li>Run the SQL migrations in order — paste, click, done, no installer</li>
+      <li>Spin up your own free Supabase project (your data, never shared)</li>
+      <li>Run the SQL migrations in order: paste, click, done, no installer</li>
       <li>Drop in your API keys and your own experience history</li>
       <li>Set your target companies and roles, once</li>
     </ol>
@@ -189,7 +189,7 @@ python -m worker run --scheduled-for "$(date -u +%Y-%m-%dT%H:%M:%SZ)"</code></pr
     <p>Or let it run daily on its own, unattended, via GitHub Actions.</p>
 
     <p>Fully independent instance: your own Supabase project, your own keys, your own data. Nothing shared,
-    nothing sent anywhere else — and no code path in it can ever submit an application for you.</p>
+    nothing sent anywhere else, and no code path in it can ever submit an application for you.</p>
 
     <hr>
     <div class="closing">
