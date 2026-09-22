@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Renata Walker</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #EFEDE6;
+    --ink: #1E1B16;
+    --muted: #6B6E52;
+    --accent: #33415C;
+    --line: #D9D5C9;
+    --card: #FAF9F4;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); margin: 0; }
+  body {
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    padding-inline: max(16px, calc((100% - 1080px) / 2));
+    line-height: 1.5;
+  }
+  img { max-width: 100%; }
+  a { color: var(--accent); }
+  ::selection { background: var(--accent); color: var(--bg); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 64px;
+    align-items: start;
+    padding-block: 56px 88px;
+  }
+
+  .side {
+    position: sticky;
+    top: max(40px, env(safe-area-inset-top, 0px));
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .side .photo {
+    aspect-ratio: 3/4;
+    width: 100%;
+    border-radius: 3px;
+    background-image: url('assets/images/headshot.jpg');
+    background-size: cover;
+    background-position: center 20%;
+  }
+  .side h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 30px;
+    margin: 0;
+    line-height: 1.15;
+  }
+  .side .tag { font-size: 15px; color: var(--muted); margin-top: 6px; }
+  .side .meta { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
+  .side .meta a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+
+  main { display: flex; flex-direction: column; gap: 72px; min-width: 0; }
+
+  .intro p { font-size: 18px; line-height: 1.65; max-width: 62ch; margin: 0 0 14px; }
+  .intro p:last-child { margin-bottom: 0; }
+
+  section { display: flex; flex-direction: column; gap: 24px; }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  /* Work */
+  .role-block { display: flex; flex-direction: column; gap: 14px; }
+  .role-block + .role-block { margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--line); }
+  .role-block h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; margin: 0; }
+  .role-block .role-meta { font-size: 13px; color: var(--muted); }
+  .role-block .media {
+    width: 100%; max-width: 480px; border-radius: 4px; display: block;
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 20px rgba(30,27,22,0.18);
+  }
+  .role-block .links { font-size: 14px; display: flex; gap: 18px; flex-wrap: wrap; }
+  .role-block .links a { font-weight: 500; }
+
+  /* Music */
+  .music-head { display: flex; gap: 24px; align-items: flex-end; flex-wrap: wrap; }
+  .music-head .art {
+    width: 132px; height: 132px; border-radius: 4px; flex-shrink: 0;
+    background-image: url('assets/images/ep-artwork.jpg');
+    background-size: cover; background-position: center;
+    box-shadow: 0 6px 20px rgba(30,27,22,0.18);
+  }
+  .music-head .ep-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 30px; margin: 0; }
+  .music-head .ep-sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
+  .music-head .ep-sub a { color: var(--accent); font-weight: 500; }
+
+  .tracklist { border-top: 1px solid var(--line); }
+  .track {
+    display: grid;
+    grid-template-columns: 40px 1fr auto 48px;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .track .playbtn {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--ink); background: transparent; color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 13px; padding: 0;
+    transition: background 0.15s, color 0.15s;
+  }
+  .track .playbtn:hover { background: var(--ink); color: var(--bg); }
+  .track .playbtn.playing { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+  .track .tname { font-size: 16px; }
+  .track .tbar { height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; position: relative; }
+  .track .tbar .fill { position: absolute; inset: 0; width: 0%; background: var(--accent); }
+  .track .ttime { font-size: 13px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+  .track-row-bottom { grid-column: 1 / -1; }
+  .track-wrap { display: flex; flex-direction: column; gap: 8px; }
+  .track-top { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 16px; }
+
+  .player-note { font-size: 13px; color: var(--muted); }
+
+  .ep-story { display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap; margin-top: 8px; }
+  .ep-story .prose { flex: 1; min-width: 240px; }
+  .ep-story .short {
+    position: relative;
+    width: 168px; aspect-ratio: 3/4; border-radius: 8px; overflow: hidden; flex-shrink: 0;
+    border: 1px solid var(--line);
+    box-shadow: 0 6px 20px rgba(30,27,22,0.18);
+    background-image: url('assets/images/alone-video-thumb.jpg');
+    background-size: cover; background-position: center 32%;
+    display: block;
+  }
+  .ep-story .short::after {
+    content: "▶"; position: absolute; inset: 0; margin: auto; width: 40px; height: 40px;
+    border-radius: 50%; background: rgba(20,18,14,0.55); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 14px;
+    transition: background 0.15s;
+  }
+  .ep-story .short:hover::after { background: var(--accent); }
+
+  /* Movement / Stillness */
+  .prose { font-size: 17px; line-height: 1.65; max-width: 60ch; }
+  .prose strong { color: var(--accent); font-weight: 600; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-block: 28px max(28px, env(safe-area-inset-bottom, 0px));
+    font-size: 13px; color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  footer a { color: var(--muted); }
+
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; gap: 32px; padding-block: 32px 56px; }
+    .side { position: static; }
+    .side .photo { aspect-ratio: 16/10; max-width: 320px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <aside class="side">
+    <div class="photo" role="img" aria-label="Portrait of Renata Walker"></div>
+    <div>
+      <h1>Renata Walker</h1>
+      <div class="tag">Product manager. Sings, dances, sits still.</div>
+    </div>
+    <div class="meta">
+      Montreal<br>
+      <a href="mailto:renata.walkerj@gmail.com">renata.walkerj@gmail.com</a><br>
+      <a href="https://www.linkedin.com/in/renata-walker/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </aside>
+
+  <main>
+    <div class="intro">
+      <p>By day, I build products in high-complexity domains — a 0-to-1 builder looking for something worth
+      caring for next: mental health, sustainability, or something entirely unexpected. No ego, just craft
+      and curiosity.</p>
+      <p>By night and on weekends, I'm a singer-songwriter, social dancer, and hiking enthusiast. My
+      superpower? Infecting people with the excitement I have for solving complex problems.</p>
+    </div>
+
+    <section id="work">
+      <div class="eyebrow">Work</div>
+
+      <div class="role-block">
+        <div>
+          <h3>Built a job-search pipeline</h3>
+          <div class="role-meta">Independent project &nbsp;·&nbsp; ongoing</div>
+        </div>
+        <img class="media" src="assets/images/dashboard-sourcing.png" alt="The job-search pipeline's own dashboard, showing sourced postings ranked by match score" loading="lazy">
+        <p class="prose">An AI-assisted pipeline that sources job postings daily, scores each one against
+        real experience with evidence — not keywords — and tracks everything through to interviews.
+        Self-built, self-hosted, already running daily for a few friends' searches.</p>
+        <div class="links">
+          <a href="/job-search-automation/">See how it works ↗</a>
+        </div>
+      </div>
+
+      <div class="role-block">
+        <div>
+          <h3>3D annotation platform, 0 → 1</h3>
+          <div class="role-meta">Senior → Staff PM, Sama &nbsp;·&nbsp; 2021–2024</div>
+        </div>
+        <img class="media" src="assets/images/sama-3d-annotation.gif" alt="Sama's 3D point-cloud annotation tool, showing bounding boxes tracked across dynamic objects in a LiDAR scan" loading="lazy">
+        <p class="prose"><strong>$7M in revenue impact</strong>, bookings share up from 3% to 45%. Built
+        Machine-Assisted Annotation (a <strong>3x efficiency gain</strong>) and led the SH3-to-Objects platform
+        migration — validated through conference field research and on-site consulting programs with Bosch,
+        ZF, and Cariad.</p>
+        <p class="prose">Along the way: 10+ international keynotes and panels on LiDAR annotation quality,
+        ADAS/AV data labeling, and training data safety — at Auto AI USA, Tech AD Europe, AVT Expo, and
+        others.</p>
+        <div class="links">
+          <a href="https://www.sama.com/3d-lidar-radar-point-cloud-annotation" target="_blank" rel="noopener">See the product ↗</a>
+          <a href="https://www.youtube.com/watch?v=qQ3HRiQ0DJw&list=PLUd0_Tc1jTZo" target="_blank" rel="noopener">Watch the talks ↗</a>
+        </div>
+      </div>
+
+      <div class="role-block">
+        <div>
+          <h3>Led native &amp; universal connectors</h3>
+          <div class="role-meta">Product Manager, Platform, Coveo &nbsp;·&nbsp; 2020–2021</div>
+        </div>
+        <img class="media" src="assets/images/coveo-connectors.png" alt="Coveo's connectors marketplace, showing native connectors (Catalog, Database, File System, GraphQL API) and universal connectors (Push, REST API, RSS, Sitemap)" loading="lazy">
+        <p class="prose">Owned API connectivity for data ingestion — native, purpose-built connectors
+        alongside push-API and generic REST-API gates for systems without one, covering both sides of the
+        native-vs-generic, push-vs-pull tradeoff.</p>
+        <div class="links">
+          <a href="https://docs.coveo.com/en/3370/index-content/index-content" target="_blank" rel="noopener">See the product ↗</a>
+        </div>
+      </div>
+
+      <div class="role-block">
+        <div>
+          <h3>Scraped Breather into a job</h3>
+          <div class="role-meta">Independent project → Data Analyst, Business Intelligence, Breather &nbsp;·&nbsp; 2018–2019</div>
+        </div>
+        <img class="media" src="assets/images/breather-notebook.png" alt="Jupyter notebook scraping and indexing Breather's public location URLs" loading="lazy">
+        <p class="prose">Before being hired, scraped every public Breather coworking location and built a
+        full analysis flagging underperforming locations to double-check. The team hired me off the back of
+        it — opening a new data role for marketing and sales, even though the position I'd originally applied
+        for was already filled.</p>
+      </div>
+
+      <div class="role-block">
+        <div>
+          <h3>Rebuilt an SMB's website</h3>
+          <div class="role-meta">Digital Marketing Consultant, Walker Design &amp; Decoration &nbsp;·&nbsp; 2016–2018 — first product job</div>
+        </div>
+        <img class="media" src="assets/images/walker-diseno-site.png" alt="Walker Diseño y Decoración's rebuilt website homepage" loading="lazy">
+        <p class="prose">Full rebuild of the company website (<strong>+50% sessions, −30% bounce rate</strong>)
+        and a new online quotation widget (<strong>+50% conversions, +30% sales</strong>). The site has stood
+        as the business's main lead-generation channel since launch — still true today.</p>
+        <div class="links">
+          <a href="https://www.malladeproteccion.cl/" target="_blank" rel="noopener">See the product ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="music">
+      <div class="eyebrow">Music</div>
+      <div class="music-head">
+        <div class="art" role="img" aria-label="Cover art for Ser"></div>
+        <div>
+          <p class="ep-title">Ser</p>
+          <div class="ep-sub">EP, 2025 &nbsp;·&nbsp; <a href="https://open.spotify.com/album/5DCvvYVyKmtf7intjUUouB" target="_blank" rel="noopener">Full EP on Spotify ↗</a></div>
+        </div>
+      </div>
+
+      <div class="tracklist">
+        <div class="track-wrap" data-track>
+          <div class="track-top">
+            <button class="playbtn" data-play aria-label="Play preview of Truth">▶</button>
+            <span class="tname">Truth</span>
+            <span class="ttime">0:30 preview &nbsp;·&nbsp; 3:56</span>
+          </div>
+          <div class="track-row-bottom"><div class="tbar"><div class="fill" data-fill></div></div></div>
+          <audio data-audio preload="none" src="assets/audio/truth.m4a"></audio>
+        </div>
+
+        <div class="track-wrap" data-track>
+          <div class="track-top">
+            <button class="playbtn" data-play aria-label="Play preview of Fearless">▶</button>
+            <span class="tname">Fearless</span>
+            <span class="ttime">0:30 preview &nbsp;·&nbsp; 4:52</span>
+          </div>
+          <div class="track-row-bottom"><div class="tbar"><div class="fill" data-fill></div></div></div>
+          <audio data-audio preload="none" src="assets/audio/fearless.m4a"></audio>
+        </div>
+
+        <div class="track-wrap" data-track>
+          <div class="track-top">
+            <button class="playbtn" data-play aria-label="Play preview of Alone">▶</button>
+            <span class="tname">Alone</span>
+            <span class="ttime">0:30 preview &nbsp;·&nbsp; 4:04</span>
+          </div>
+          <div class="track-row-bottom"><div class="tbar"><div class="fill" data-fill></div></div></div>
+          <audio data-audio preload="none" src="assets/audio/alone.m4a"></audio>
+        </div>
+      </div>
+      <div class="player-note">Press play for a 30-second preview of each track, or hear the full EP on Spotify.</div>
+
+      <div class="ep-story">
+        <p class="prose">Wrote every song, then worked hand-in-hand with a producer through recording and
+        production. Managed the entire launch myself — a release show, and the official video for
+        <em>Alone</em>.</p>
+        <a class="short" href="https://www.youtube.com/shorts/7mdzggYlJSY" target="_blank" rel="noopener" aria-label="Watch the official video for Alone on YouTube"></a>
+      </div>
+    </section>
+
+    <section id="movement">
+      <div class="eyebrow">Movement</div>
+      <p class="prose">Social dancing, most weeks — <strong>bachata, salsa, zouk</strong>. Whatever floor is
+      playing.</p>
+    </section>
+
+    <section id="stillness">
+      <div class="eyebrow">Stillness</div>
+      <p class="prose">Five ten-day <strong>Vipassana</strong> courses, in complete silence, at S.N. Goenka's
+      centers.</p>
+    </section>
+
+    <footer>
+      <span>Renata Walker — Montreal</span>
+      <span>© 2026</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function() {
+  var tracks = document.querySelectorAll('[data-track]');
+  var current = null;
+
+  tracks.forEach(function(track) {
+    var audio = track.querySelector('[data-audio]');
+    var btn = track.querySelector('[data-play]');
+    var fill = track.querySelector('[data-fill]');
+
+    function reset() {
+      btn.textContent = '▶';
+      btn.classList.remove('playing');
+      fill.style.width = '0%';
+    }
+
+    audio.addEventListener('timeupdate', function() {
+      if (audio.duration) {
+        fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+      }
+    });
+    audio.addEventListener('ended', reset);
+
+    btn.addEventListener('click', function() {
+      if (current && current !== audio) {
+        current.pause();
+        current.currentTime = 0;
+      }
+      if (audio.paused) {
+        audio.play().catch(function() {});
+        btn.textContent = '❚❚';
+        btn.classList.add('playing');
+        current = audio;
+      } else {
+        audio.pause();
+        reset();
+        current = null;
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

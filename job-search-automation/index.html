@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>job-search-automation</title>
+<style>
+  :root {
+    --bg: #F6F8FA;
+    --canvas: #FFFFFF;
+    --ink: #1F2328;
+    --muted: #656D76;
+    --border: #D1D9E0;
+    --link: #0969DA;
+    --code-bg: #F6F8FA;
+    --badge-gray: #656D76;
+    --badge-blue: #0969DA;
+    --badge-green: #1F883D;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #010409;
+      --canvas: #0D1117;
+      --ink: #E6EDF3;
+      --muted: #9198A1;
+      --border: #30363D;
+      --link: #4493F8;
+      --code-bg: #161B22;
+      --badge-gray: #9198A1;
+      --badge-blue: #4493F8;
+      --badge-green: #3FB950;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #010409;
+    --canvas: #0D1117;
+    --ink: #E6EDF3;
+    --muted: #9198A1;
+    --border: #30363D;
+    --link: #4493F8;
+    --code-bg: #161B22;
+    --badge-gray: #9198A1;
+    --badge-blue: #4493F8;
+    --badge-green: #3FB950;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); margin: 0; }
+  body {
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    padding-inline: max(16px, calc((100% - 780px) / 2));
+    padding-block: 40px 64px;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  :focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  img { max-width: 100%; }
+  code, .mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+
+  .repo-head { margin-bottom: 18px; }
+  .repo-name { font-size: 20px; }
+  .repo-name .owner { color: var(--muted); }
+  .repo-name .sep { color: var(--muted); padding: 0 2px; }
+  .repo-desc { color: var(--muted); font-size: 14px; margin-top: 6px; }
+
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .badge {
+    display: inline-flex; align-items: center; height: 20px; border-radius: 3px;
+    font-size: 11px; font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    overflow: hidden; border: 1px solid var(--border);
+  }
+  .badge span { padding: 0 7px; display: flex; align-items: center; height: 100%; }
+  .badge .k { background: var(--code-bg); color: var(--muted); }
+  .badge .v { color: #fff; }
+  .badge .v.gray { background: var(--badge-gray); }
+  .badge .v.blue { background: var(--badge-blue); }
+  .badge .v.green { background: var(--badge-green); }
+
+  .file {
+    border: 1px solid var(--border); border-radius: 6px; background: var(--canvas);
+    margin-top: 22px; overflow: hidden;
+  }
+  .file-tab {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border-bottom: 1px solid var(--border);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px; color: var(--muted); background: var(--code-bg);
+  }
+  .readme { padding: 24px 32px 32px; }
+
+  .readme h1 {
+    font-size: 26px; font-weight: 600; margin: 0 0 8px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  }
+  .readme h2 {
+    font-size: 19px; font-weight: 600; margin: 30px 0 14px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .readme h2:first-of-type { margin-top: 26px; }
+  .readme p { margin: 0 0 14px; }
+  .lede { color: var(--muted); font-size: 16px; }
+
+  blockquote {
+    margin: 0 0 16px; padding: 0 14px; border-left: 3px solid var(--border); color: var(--muted);
+  }
+  blockquote p { margin: 0; }
+
+  ul.md, ol.md { padding-left: 26px; margin: 0 0 16px; }
+  ul.md li, ol.md li { margin-bottom: 6px; }
+
+  code.inline {
+    background: rgba(175,184,193,0.2); padding: 0.15em 0.4em; border-radius: 4px; font-size: 85%;
+  }
+  pre.codeblock {
+    background: var(--code-bg); border-radius: 6px; padding: 14px 16px; overflow-x: auto;
+    font-size: 13px; margin: 0 0 16px; border: 1px solid var(--border);
+  }
+
+  figure { margin: 8px 0 20px; }
+  figure img { border: 1px solid var(--border); border-radius: 6px; display: block; }
+  figcaption { font-size: 12.5px; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 28px 0 20px; }
+
+  .closing { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px; font-size: 14px; color: var(--muted); }
+
+  @media (max-width: 600px) {
+    .readme { padding: 18px 18px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="repo-head">
+  <div class="repo-name mono"><span class="owner">renatawalker /</span> job-search-automation</div>
+  <div class="repo-desc">Sources job postings daily, scores them against real experience with evidence, and
+  tracks everything through to interviews.</div>
+  <div class="badges">
+    <span class="badge"><span class="k">repo</span><span class="v gray">private</span></span>
+    <span class="badge"><span class="k">stack</span><span class="v blue">python + supabase</span></span>
+    <span class="badge"><span class="k">runs</span><span class="v green">daily · github actions</span></span>
+    <span class="badge"><span class="k">auto-apply</span><span class="v gray">never</span></span>
+  </div>
+</div>
+
+<div class="file">
+  <div class="file-tab">README.md</div>
+  <div class="readme">
+    <h1>job-search-automation</h1>
+    <p class="lede">A pipeline that job-hunts while you don't.</p>
+
+    <blockquote><p>Already running daily for a few friends' searches.</p></blockquote>
+
+    <h2>What it does</h2>
+    <ul class="md">
+      <li>Pulls new postings daily — target companies' own career pages, plus the open market</li>
+      <li>Scores every posting against your real experience, with the exact evidence behind each score</li>
+      <li>Surfaces the fine print — comp, remote policy, sponsorship, parental leave — quoted, never guessed</li>
+      <li>One dashboard: sourcing → triage → leads → interviews</li>
+    </ul>
+
+    <h2>How it helps your search</h2>
+    <ul class="md">
+      <li>No more manually checking a dozen career pages a day</li>
+      <li>No more re-reading a JD for ten minutes to guess if you qualify</li>
+      <li>Never miss a sponsorship clause or RTO policy buried in paragraph six</li>
+      <li>Never sends an application for you — you stay in control, always</li>
+    </ul>
+
+    <figure>
+      <img src="assets/dashboard-sourcing.png" alt="The pipeline's own dashboard, showing sourced postings ranked by match score, with filters for priority, product roles, location, and eligibility" loading="lazy">
+      <figcaption>Sourcing tab — 562 roles found, filtered and ranked by match score.</figcaption>
+    </figure>
+
+    <h2>Setup</h2>
+    <p>~30–45 min once. Then it just runs.</p>
+    <ol class="md">
+      <li>Spin up your own free Supabase project — your data, never shared</li>
+      <li>Run the SQL migrations in order — paste, click, done, no installer</li>
+      <li>Drop in your API keys and your own experience history</li>
+      <li>Set your target companies and roles, once</li>
+    </ol>
+    <pre class="codeblock"><code>cd worker
+pip install -e .
+python -m worker run --scheduled-for "$(date -u +%Y-%m-%dT%H:%M:%SZ)"</code></pre>
+    <p>Or let it run daily on its own, unattended, via GitHub Actions.</p>
+
+    <p>Fully independent instance: your own Supabase project, your own keys, your own data. Nothing shared,
+    nothing sent anywhere else — and no code path in it can ever submit an application for you.</p>
+
+    <hr>
+    <div class="closing">
+      <span>Built and used by <a href="/">Renata Walker</a></span>
+      <a href="mailto:renata.walkerj@gmail.com">Want in? renata.walkerj@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
